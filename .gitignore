@@ -1,0 +1,12 @@
+*.subject.pdf
+
+compile_flags.txt
+
+# Config Files
+.clang-format
+.clangd
+
+# Generated Files
+obj
+
+conversion_of_scalar_types
