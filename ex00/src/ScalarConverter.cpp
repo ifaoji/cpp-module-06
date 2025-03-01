@@ -212,11 +212,23 @@ ScalarConverter::InputType ScalarConverter::detectInputType(
     return (ScalarConverter::InputInvalid);
 }
 
+void ScalarConverter::print(char input) {
+    int    as_int    = static_cast<int>(input);
+    float  as_float  = static_cast<float>(input);
+    double as_double = static_cast<double>(input);
+
+    std::cout << "char: '" << input << "'" << std::endl;
+    std::cout << "int: " << as_int << std::endl;
+    std::cout << "float: " << as_float << std::endl;
+    std::cout << "double: " << as_double << std::endl;
+}
+
 void ScalarConverter::convert(const std::string &raw) {
     ScalarConverter::InputType input_type = detectInputType(raw);
     switch (input_type) {
         case ScalarConverter::InputChar:
-            std::cout << "Input is char" << std::endl;
+            print(raw[0]);
+
             break;
         case ScalarConverter::InputInt:
             std::cout << "Input is int" << std::endl;
