@@ -15,6 +15,14 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &) {
     return *this;
 }
 
+static bool isCharInput(const std::string &raw) {
+    if (raw.length() != 1) return false;
+
+    if (!std::isprint(raw[0])) return false;
+
+    return true;
+}
+
 enum InputType {
     InputChar,
     InputInt,
