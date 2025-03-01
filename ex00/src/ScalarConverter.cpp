@@ -19,6 +19,7 @@ bool ScalarConverter::isCharInput(const std::string &raw) {
     if (raw.length() != 1) return false;
 
     if (!std::isprint(raw[0])) return false;
+    if (std::isdigit(raw[0])) return false;
 
     return true;
 }
