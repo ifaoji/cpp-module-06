@@ -249,7 +249,7 @@ void ScalarConverter::print(int input) {
 
 static bool parseInt(const std::string &raw, int &result) {
     char *end_ptr = NULL;
-    result        = strtol(raw.c_str(), &end_ptr, 10);
+    long  parsed  = strtol(raw.c_str(), &end_ptr, 10);
 
     const bool is_at_end = *end_ptr == '\0';
     if (!is_at_end) {
@@ -257,11 +257,13 @@ static bool parseInt(const std::string &raw, int &result) {
     }
 
     // `strtol` stops at long min/max, therefore a check with int limits is safe
-    const bool underflow = result < std::numeric_limits<int>().min();
-    const bool overflow  = result > std::numeric_limits<int>().max();
+    const bool underflow = parsed < std::numeric_limits<int>().min();
+    const bool overflow  = parsed > std::numeric_limits<int>().max();
     if (underflow || overflow) {
         return false;
     }
+
+    result = static_cast<int>(parsed);
 
     return true;
 }
