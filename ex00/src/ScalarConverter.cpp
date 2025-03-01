@@ -273,22 +273,16 @@ void ScalarConverter::convert(const std::string &raw) {
     switch (input_type) {
         case ScalarConverter::InputChar:
             print(raw[0]);
-
-            break;
+            return;
         case ScalarConverter::InputInt: {
             int number = 0;
 
             if (!parseInt(raw, number)) {
-                std::cout << "Error: The provided input is not a valid "
-                             "char/int/float/double: `"
-                          << raw << "`" << std::endl;
-
-                return;
+                break;
             }
 
             print(number);
-
-            break;
+            return;
         }
         case ScalarConverter::InputFloat:
             std::cout << "Input is float" << std::endl;
@@ -297,10 +291,10 @@ void ScalarConverter::convert(const std::string &raw) {
             std::cout << "Input is double" << std::endl;
             break;
         case ScalarConverter::InputInvalid:
-            std::cout << "Error: The provided input is not a valid "
-                         "char/int/float/double: `"
-                      << raw << "`" << std::endl;
-
-            return;
+            break;
     }
+
+    std::cout << "Error: The provided input is not a valid "
+                 "char/int/float/double: `"
+              << raw << "`" << std::endl;
 }
