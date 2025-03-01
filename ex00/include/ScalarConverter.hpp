@@ -27,6 +27,7 @@ class ScalarConverter {
 
     static InputType detectInputType(const std::string &input);
     static bool      isCharInput(const std::string &raw);
+    static bool      isIntInput(const std::string &raw);
 };
 
 #endif

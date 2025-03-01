@@ -23,10 +23,31 @@ bool ScalarConverter::isCharInput(const std::string &raw) {
     return true;
 }
 
+bool ScalarConverter::isIntInput(const std::string &raw) {
+    if (raw.empty()) return false;
+
+    size_t i = 0;
+
+    const bool has_sign = raw[0] == '+' || raw[0] == '-';
+    if (has_sign) i += 1;
+
+    const bool only_has_sign = raw.length() == i;
+    if (only_has_sign) return false;
+
+    while (i < raw.length()) {
+        if (!std::isdigit(raw[i])) return false;
+
+        i += 1;
+    }
+
+    return true;
+}
+
 // TODO: Maybe trim string?
 ScalarConverter::InputType ScalarConverter::detectInputType(
     const std::string &input) {
     if (isCharInput(input)) return ScalarConverter::InputChar;
+    if (isIntInput(input)) return ScalarConverter::InputInt;
 
     return (ScalarConverter::InputInvalid);
 }
