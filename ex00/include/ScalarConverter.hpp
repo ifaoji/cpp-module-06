@@ -16,6 +16,17 @@ class ScalarConverter {
     ~ScalarConverter();
 
     ScalarConverter &operator=(const ScalarConverter &rhs);
+
+    enum InputType {
+        InputChar,
+        InputInt,
+        InputFloat,
+        InputDouble,
+        InputInvalid,
+    };
+
+    static InputType detectInputType(const std::string &input);
+    static bool      isCharInput(const std::string &raw);
 };
 
 #endif

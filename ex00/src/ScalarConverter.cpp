@@ -15,7 +15,7 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &) {
     return *this;
 }
 
-static bool isCharInput(const std::string &raw) {
+bool ScalarConverter::isCharInput(const std::string &raw) {
     if (raw.length() != 1) return false;
 
     if (!std::isprint(raw[0])) return false;
@@ -23,37 +23,30 @@ static bool isCharInput(const std::string &raw) {
     return true;
 }
 
-enum InputType {
-    InputChar,
-    InputInt,
-    InputFloat,
-    InputDouble,
-    InputInvalid,
-};
-
 // TODO: Maybe trim string?
-static InputType detectInputType(const std::string &input) {
-    if (isCharInput(input)) return InputChar;
+ScalarConverter::InputType ScalarConverter::detectInputType(
+    const std::string &input) {
+    if (isCharInput(input)) return ScalarConverter::InputChar;
 
-    return (InputInvalid);
+    return (ScalarConverter::InputInvalid);
 }
 
 void ScalarConverter::convert(const std::string &raw) {
-    InputType input_type = detectInputType(raw);
+    ScalarConverter::InputType input_type = detectInputType(raw);
     switch (input_type) {
-        case InputChar:
+        case ScalarConverter::InputChar:
             std::cout << "Input is char" << std::endl;
             break;
-        case InputInt:
+        case ScalarConverter::InputInt:
             std::cout << "Input is int" << std::endl;
             break;
-        case InputFloat:
+        case ScalarConverter::InputFloat:
             std::cout << "Input is float" << std::endl;
             break;
-        case InputDouble:
+        case ScalarConverter::InputDouble:
             std::cout << "Input is double" << std::endl;
             break;
-        case InputInvalid:
+        case ScalarConverter::InputInvalid:
             std::cout << "Input is INVALID" << std::endl;
             break;
     }
