@@ -62,8 +62,8 @@ bool ScalarConverter::isFloatInput(const std::string &input) {
 
     const std::string after_sign = input.substr(i);
 
-    if (strcasecmp(after_sign.c_str(), "nanf") ||
-        strcasecmp(after_sign.c_str(), "inff"))
+    if (strcasecmp(after_sign.c_str(), "nanf") == 0 ||
+        strcasecmp(after_sign.c_str(), "inff") == 0)
         return true;
 
     bool has_digits   = false;
