@@ -228,7 +228,10 @@ void ScalarConverter::convert(const std::string &raw) {
             std::cout << "Input is double" << std::endl;
             break;
         case ScalarConverter::InputInvalid:
-            std::cout << "Input is INVALID" << std::endl;
-            break;
+            std::cout << "Error: The provided input is not a valid "
+                         "char/int/float/double: `"
+                      << raw << "`" << std::endl;
+
+            return;
     }
 }
