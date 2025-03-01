@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
+#include <limits>
 
 #include "ScalarConverter.hpp"
 
@@ -223,6 +224,48 @@ void ScalarConverter::print(char input) {
     std::cout << "double: " << as_double << std::endl;
 }
 
+void ScalarConverter::print(int input) {
+    const bool fits_in_char = input >= std::numeric_limits<char>().min() &&
+                              input <= std::numeric_limits<char>().max();
+    if (!fits_in_char) {
+        std::cout << "char: impossible" << std::endl;
+    } else {
+        char c = static_cast<char>(input);
+
+        if (!std::isprint(c)) {
+            std::cout << "char: Non displayable" << std::endl;
+        } else {
+            std::cout << "char: '" << c << "'" << std::endl;
+        }
+    }
+
+    float  as_float  = static_cast<float>(input);
+    double as_double = static_cast<double>(input);
+
+    std::cout << "int: " << input << std::endl;
+    std::cout << "float: " << as_float << std::endl;
+    std::cout << "double: " << as_double << std::endl;
+}
+
+static bool parseInt(const std::string &raw, int &result) {
+    char *end_ptr = NULL;
+    result        = strtol(raw.c_str(), &end_ptr, 10);
+
+    const bool is_at_end = *end_ptr == '\0';
+    if (!is_at_end) {
+        return false;
+    }
+
+    // `strtol` stops at long min/max, therefore a check with int limits is safe
+    const bool underflow = result < std::numeric_limits<int>().min();
+    const bool overflow  = result > std::numeric_limits<int>().max();
+    if (underflow || overflow) {
+        return false;
+    }
+
+    return true;
+}
+
 void ScalarConverter::convert(const std::string &raw) {
     ScalarConverter::InputType input_type = detectInputType(raw);
     switch (input_type) {
@@ -230,9 +273,21 @@ void ScalarConverter::convert(const std::string &raw) {
             print(raw[0]);
 
             break;
-        case ScalarConverter::InputInt:
-            std::cout << "Input is int" << std::endl;
+        case ScalarConverter::InputInt: {
+            int number = 0;
+
+            if (!parseInt(raw, number)) {
+                std::cout << "Error: The provided input is not a valid "
+                             "char/int/float/double: `"
+                          << raw << "`" << std::endl;
+
+                return;
+            }
+
+            print(number);
+
             break;
+        }
         case ScalarConverter::InputFloat:
             std::cout << "Input is float" << std::endl;
             break;

@@ -32,6 +32,7 @@ class ScalarConverter {
     static bool      isDoubleInput(const std::string &raw);
 
     static void print(char input);
+    static void print(int input);
 };
 
 #endif
