@@ -198,8 +198,6 @@ bool ScalarConverter::isDoubleInput(const std::string &input) {
     if (!has_dot && !has_exponent) return false;
     if (!has_digits) return false;
 
-    if (i != input.length()) return false;
-
     return true;
 }
 
