@@ -3,6 +3,7 @@
 #include <iostream>
 #include <limits>
 
+#include "Numbers.hpp"
 #include "ScalarConverter.hpp"
 
 ScalarConverter::ScalarConverter() {
@@ -213,40 +214,6 @@ ScalarConverter::InputType ScalarConverter::detectInputType(
     return (ScalarConverter::InputInvalid);
 }
 
-void ScalarConverter::print(char input) {
-    int    as_int    = static_cast<int>(input);
-    float  as_float  = static_cast<float>(input);
-    double as_double = static_cast<double>(input);
-
-    std::cout << "char: '" << input << "'" << std::endl;
-    std::cout << "int: " << as_int << std::endl;
-    std::cout << "float: " << as_float << std::endl;
-    std::cout << "double: " << as_double << std::endl;
-}
-
-void ScalarConverter::print(int input) {
-    const bool fits_in_char = input >= std::numeric_limits<char>().min() &&
-                              input <= std::numeric_limits<char>().max();
-    if (!fits_in_char) {
-        std::cout << "char: impossible" << std::endl;
-    } else {
-        char c = static_cast<char>(input);
-
-        if (!std::isprint(c)) {
-            std::cout << "char: Non displayable" << std::endl;
-        } else {
-            std::cout << "char: '" << c << "'" << std::endl;
-        }
-    }
-
-    float  as_float  = static_cast<float>(input);
-    double as_double = static_cast<double>(input);
-
-    std::cout << "int: " << input << std::endl;
-    std::cout << "float: " << as_float << std::endl;
-    std::cout << "double: " << as_double << std::endl;
-}
-
 static bool parseInt(const std::string &raw, int &result) {
     char *end_ptr = NULL;
     long  parsed  = strtol(raw.c_str(), &end_ptr, 10);
@@ -271,9 +238,11 @@ static bool parseInt(const std::string &raw, int &result) {
 void ScalarConverter::convert(const std::string &raw) {
     ScalarConverter::InputType input_type = detectInputType(raw);
     switch (input_type) {
-        case ScalarConverter::InputChar:
-            print(raw[0]);
+        case ScalarConverter::InputChar: {
+            Numbers(raw[0]).print();
+
             return;
+        }
         case ScalarConverter::InputInt: {
             int number = 0;
 
@@ -281,7 +250,8 @@ void ScalarConverter::convert(const std::string &raw) {
                 break;
             }
 
-            print(number);
+            Numbers(number).print();
+
             return;
         }
         case ScalarConverter::InputFloat:

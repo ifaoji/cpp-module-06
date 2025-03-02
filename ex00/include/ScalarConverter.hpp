@@ -30,9 +30,6 @@ class ScalarConverter {
     static bool      isIntInput(const std::string &raw);
     static bool      isFloatInput(const std::string &raw);
     static bool      isDoubleInput(const std::string &raw);
-
-    static void print(char input);
-    static void print(int input);
 };
 
 #endif
