@@ -196,7 +196,7 @@ void Numbers::print() const {
     }
 
     std::cout << "double: ";
-    if (!has_char_) {
+    if (!has_double_) {
         std::cout << "impossible" << std::endl;
     } else {
         std::cout << d_ << std::endl;
