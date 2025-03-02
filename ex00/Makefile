@@ -5,6 +5,7 @@ LDFLAGS =
 LDLIBS =
 
 RAW_SRCS =	main \
+			Numbers \
 			ScalarConverter \
 
 SRC_DIR = ./src
