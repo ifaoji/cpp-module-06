@@ -53,9 +53,6 @@ bool ScalarConverter::isFloatInput(const std::string &input) {
     if (input.empty()) return false;
 
     size_t i = 0;
-    while (i < input.length() && std::isspace(input[i])) {
-        i += 1;
-    }
 
     const bool has_sign = input[i] == '+' || input[i] == '-';
     if (has_sign) i += 1;
@@ -134,9 +131,6 @@ bool ScalarConverter::isDoubleInput(const std::string &input) {
     if (input.empty()) return false;
 
     size_t i = 0;
-    while (i < input.length() && std::isspace(input[i])) {
-        i += 1;
-    }
 
     const bool has_sign = input[i] == '+' || input[i] == '-';
     if (has_sign) i += 1;
