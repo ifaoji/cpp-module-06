@@ -110,11 +110,17 @@ Numbers::Numbers(double d)
       i_(0),
       f_(0.0f),
       d_(d) {
+    const bool is_negative = std::signbit(d) != 0;
+
     const bool is_nan = d != d;
     if (is_nan) {
         has_float_ = true;
-        f_         = std::numeric_limits<float>().quiet_NaN();
 
+        if (!is_negative) {
+            f_ = std::numeric_limits<float>().quiet_NaN();
+        } else {
+            f_ = -std::numeric_limits<float>().quiet_NaN();
+        }
         return;
     }
 
@@ -122,7 +128,7 @@ Numbers::Numbers(double d)
                              d == -std::numeric_limits<double>().infinity();
     if (is_infinity) {
         has_float_ = true;
-        if (d >= 0) {
+        if (!is_negative) {
             f_ = std::numeric_limits<float>().infinity();
         } else {
             f_ = -std::numeric_limits<float>().infinity();
