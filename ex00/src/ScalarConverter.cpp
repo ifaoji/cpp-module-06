@@ -1,3 +1,4 @@
+#include <cerrno>
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
@@ -215,6 +216,7 @@ ScalarConverter::InputType ScalarConverter::detectInputType(
 }
 
 static bool parseInt(const std::string &raw, int &result) {
+    errno         = 0;
     char *end_ptr = NULL;
     long  parsed  = strtol(raw.c_str(), &end_ptr, 10);
 
@@ -226,7 +228,7 @@ static bool parseInt(const std::string &raw, int &result) {
     // `strtol` stops at long min/max, therefore a check with int limits is safe
     const bool underflow = parsed < std::numeric_limits<int>().min();
     const bool overflow  = parsed > std::numeric_limits<int>().max();
-    if (underflow || overflow) {
+    if (underflow || overflow || errno == ERANGE) {
         return false;
     }
 
