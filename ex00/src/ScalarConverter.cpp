@@ -237,6 +237,22 @@ static bool parseInt(const std::string &raw, int &result) {
     return true;
 }
 
+static bool parseFloat(const std::string &raw, float &result) {
+    errno         = 0;
+    char *end_ptr = NULL;
+    result        = strtof(raw.c_str(), &end_ptr);
+
+    const bool is_at_end = end_ptr[0] == 'f' && end_ptr[1] == '\0';
+    if (!is_at_end) {
+        return false;
+    }
+
+    if (errno == ERANGE) {
+        return false;
+    }
+
+    return true;
+}
 void ScalarConverter::convert(const std::string &raw) {
     ScalarConverter::InputType input_type = detectInputType(raw);
     switch (input_type) {
@@ -256,9 +272,17 @@ void ScalarConverter::convert(const std::string &raw) {
 
             return;
         }
-        case ScalarConverter::InputFloat:
-            std::cout << "Input is float" << std::endl;
-            break;
+        case ScalarConverter::InputFloat: {
+            float number = 0.0f;
+
+            if (!parseFloat(raw, number)) {
+                break;
+            }
+
+            Numbers(number).print();
+
+            return;
+        }
         case ScalarConverter::InputDouble:
             std::cout << "Input is double" << std::endl;
             break;
