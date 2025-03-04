@@ -1,6 +1,7 @@
 #include <cmath>
 #include <iostream>
 #include <limits>
+#include <sstream>
 
 #include "Numbers.hpp"
 
@@ -198,13 +199,41 @@ void Numbers::print() const {
     if (!has_float_) {
         std::cout << "impossible" << std::endl;
     } else {
-        std::cout << f_ << std::endl;
+        // Ugly but simple way to find out whether we need to print a `.0`
+        std::ostringstream formatted;
+        formatted << f_;
+
+        std::string result = formatted.str();
+        std::cout << result;
+
+        const bool should_add_fraction =
+            result.find('.') == std::string::npos &&
+            result.find('e') == std::string::npos;
+        if (should_add_fraction) {
+            std::cout << ".0";
+        }
+
+        std::cout << "f" << std::endl;
     }
 
     std::cout << "double: ";
     if (!has_double_) {
         std::cout << "impossible" << std::endl;
     } else {
-        std::cout << d_ << std::endl;
+        // Ugly but simple way to find out whether we need to print a `.0`
+        std::ostringstream formatted;
+        formatted << d_;
+
+        std::string result = formatted.str();
+        std::cout << result;
+
+        const bool should_add_fraction =
+            result.find('.') == std::string::npos &&
+            result.find('e') == std::string::npos;
+        if (should_add_fraction) {
+            std::cout << ".0";
+        }
+
+        std::cout << std::endl;
     }
 }
