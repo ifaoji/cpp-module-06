@@ -91,6 +91,14 @@ Numbers::Numbers(float f)
     has_int_ = true;
     i_       = static_cast<int>(f_);
 
+    // explicit check for f_ == 0.0 because zeros can also have a sign bit set
+    const bool int_has_correct_sign =
+        (std::signbit(f_) != 0 == i_ < 0) || f_ == 0.0;
+    if (!int_has_correct_sign) {
+        has_int_ = false;
+        return;
+    }
+
     const bool fits_in_char =
         i_ >= static_cast<int>(std::numeric_limits<char>().min()) &&
         i_ <= static_cast<int>(std::numeric_limits<char>().max());
@@ -149,21 +157,31 @@ Numbers::Numbers(double d)
     f_         = static_cast<float>(d);
 
     // Floats with fractions cannot be properly stored in an int
-    float integral;
-    bool  has_fraction = std::modf(f_, &integral) != 0.0;
+    double integral;
+    bool   has_fraction = std::modf(d_, &integral) != 0.0;
     if (has_fraction) {
         return;
     }
 
+    std::cout << std::fixed << d_ << std::endl;
+
     const bool fits_in_int =
-        f_ >= static_cast<float>(std::numeric_limits<int>().min()) &&
-        f_ <= static_cast<float>(std::numeric_limits<int>().max());
+        d_ >= static_cast<double>(std::numeric_limits<int>().min()) &&
+        d_ <= static_cast<double>(std::numeric_limits<int>().max());
     if (!fits_in_int) {
         return;
     }
 
     has_int_ = true;
-    i_       = static_cast<int>(f_);
+    i_       = static_cast<int>(d_);
+
+    // explicit check for d_ == 0.0 because zeros can also have a sign bit set
+    const bool int_has_correct_sign =
+        (std::signbit(d_) != 0 == i_ < 0) || d_ == 0.0;
+    if (!int_has_correct_sign) {
+        has_int_ = false;
+        return;
+    }
 
     const bool fits_in_char =
         i_ >= static_cast<int>(std::numeric_limits<char>().min()) &&
