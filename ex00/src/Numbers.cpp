@@ -147,7 +147,7 @@ Numbers::Numbers(double d)
     }
 
     const bool fits_in_float =
-        d >= static_cast<double>(std::numeric_limits<float>().min()) &&
+        d >= static_cast<double>(-std::numeric_limits<float>().max()) &&
         d <= static_cast<double>(std::numeric_limits<float>().max());
     if (!fits_in_float) {
         return;
