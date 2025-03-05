@@ -163,8 +163,6 @@ Numbers::Numbers(double d)
         return;
     }
 
-    std::cout << std::fixed << d_ << std::endl;
-
     const bool fits_in_int =
         d_ >= static_cast<double>(std::numeric_limits<int>().min()) &&
         d_ <= static_cast<double>(std::numeric_limits<int>().max());
