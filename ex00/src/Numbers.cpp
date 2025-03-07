@@ -222,13 +222,14 @@ void Numbers::print() const {
         std::string result = formatted.str();
         std::cout << result;
 
+        const bool is_nan = f_ != f_;
         const bool is_infinity =
             f_ == std::numeric_limits<float>().infinity() ||
             f_ == -std::numeric_limits<float>().infinity();
         const bool should_add_fraction =
             result.find('.') == std::string::npos &&
             result.find('e') == std::string::npos && f_ < 100000 &&
-            !is_infinity;
+            !is_infinity && !is_nan;
         if (should_add_fraction) {
             std::cout << ".0";
         }
@@ -247,13 +248,14 @@ void Numbers::print() const {
         std::string result = formatted.str();
         std::cout << result;
 
+        const bool is_nan = d_ != d_;
         const bool is_infinity =
             f_ == std::numeric_limits<float>().infinity() ||
             f_ == -std::numeric_limits<float>().infinity();
         const bool should_add_fraction =
             result.find('.') == std::string::npos &&
             result.find('e') == std::string::npos && d_ < 100000 &&
-            !is_infinity;
+            !is_infinity && !is_nan;
         if (should_add_fraction) {
             std::cout << ".0";
         }
