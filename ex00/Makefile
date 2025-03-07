@@ -17,6 +17,10 @@ OBJ_DIRS := $(sort $(dir $(OBJS)))
 
 NAME = conversion_of_scalar_types
 
+ifeq ($(DEBUG), 1)
+CXXFLAGS += -O0 -glldb
+endif
+
 .PHONY: all clean fclean re
 
 all: $(NAME)
@@ -39,3 +43,11 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIRS)
 
 $(OBJ_DIRS):
 	mkdir -p $@
+
+# DEBUG RULES
+
+debug:
+	$(MAKE) DEBUG=1 --no-print-directory all
+
+redebug: fclean debug
+
