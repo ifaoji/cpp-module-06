@@ -224,7 +224,7 @@ void Numbers::print() const {
 
         const bool should_add_fraction =
             result.find('.') == std::string::npos &&
-            result.find('e') == std::string::npos;
+            result.find('e') == std::string::npos && f_ < 100000;
         if (should_add_fraction) {
             std::cout << ".0";
         }
@@ -245,7 +245,7 @@ void Numbers::print() const {
 
         const bool should_add_fraction =
             result.find('.') == std::string::npos &&
-            result.find('e') == std::string::npos;
+            result.find('e') == std::string::npos && d_ < 100000;
         if (should_add_fraction) {
             std::cout << ".0";
         }
