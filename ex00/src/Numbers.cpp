@@ -250,8 +250,8 @@ void Numbers::print() const {
 
         const bool is_nan = d_ != d_;
         const bool is_infinity =
-            f_ == std::numeric_limits<float>().infinity() ||
-            f_ == -std::numeric_limits<float>().infinity();
+            d_ == std::numeric_limits<double>().infinity() ||
+            d_ == -std::numeric_limits<double>().infinity();
         const bool should_add_fraction =
             result.find('.') == std::string::npos &&
             result.find('e') == std::string::npos && d_ < 100000 &&
