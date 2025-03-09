@@ -67,7 +67,7 @@ void identify(Base &p) {
         std::cout << "Identified a ref to class A" << std::endl;
 
         return;
-    } catch (std::exception) {
+    } catch (...) {
     }
 
     try {
@@ -76,7 +76,7 @@ void identify(Base &p) {
         std::cout << "Identified a ref to class B" << std::endl;
 
         return;
-    } catch (std::exception) {
+    } catch (...) {
     }
 
     try {
@@ -85,7 +85,7 @@ void identify(Base &p) {
         std::cout << "Identified a ref to class C" << std::endl;
 
         return;
-    } catch (std::exception) {
+    } catch (...) {
     }
 
     std::cout << "Not a ref to class A, B, or C" << std::endl;
